@@ -4,11 +4,12 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import Lenis from "@studio-freight/lenis";
 
 export default function Home() {
   const section1Ref = useRef<HTMLDivElement>(null);
   const [darkMode, setDarkMode] = useState(false);
-  const [navbarLight, setNavbarLight] = useState(true); // true = navbar blanco
+  const [navbarLight, setNavbarLight] = useState(true);
 
   // Animación Sección1
   useEffect(() => {
@@ -25,12 +26,35 @@ export default function Home() {
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
-      setNavbarLight(false); // navbar oscuro
+      setNavbarLight(false);
     } else {
       document.documentElement.classList.remove("dark");
-      setNavbarLight(true); // navbar claro
+      setNavbarLight(true);
     }
   }, [darkMode]);
+
+  // Lenis scroll
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => t,
+      lerp: 0.1,
+      smoothWheel: true,
+    });
+  
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+  
+    requestAnimationFrame(raf);
+  
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+  
+  
 
   return (
     <main className="transition-colors duration-500 bg-white dark:bg-gray-900">
@@ -90,7 +114,7 @@ export default function Home() {
               variant="default"
               onClick={() => setDarkMode(!darkMode)}
             >
-              {darkMode ? "☀️" : "🌙"}
+              {darkMode ? "🌙" : "☀️"}
             </Button>
           </div>
         </div>
