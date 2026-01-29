@@ -5,7 +5,7 @@ import { gsap } from "gsap";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Lenis from "@studio-freight/lenis";
-import { domine } from "./layout"; // Importa la font desde layout
+import { domine } from "./layout"; 
 
 export default function Home() {
   const section1Ref = useRef<HTMLDivElement>(null);
@@ -13,17 +13,6 @@ export default function Home() {
   const [navbarLight, setNavbarLight] = useState(true);
   const [showNavbar, setShowNavbar] = useState(true);
   const lastScrollY = useRef(0);
-
-  // Animación Sección1
-  useEffect(() => {
-    if (section1Ref.current) {
-      gsap.fromTo(
-        section1Ref.current,
-        { opacity: 0, y: -50 },
-        { opacity: 1, y: 0, duration: 1.5, ease: "power3.out" }
-      );
-    }
-  }, []);
 
   // Dark mode y navbarLight
   useEffect(() => {
@@ -63,10 +52,8 @@ export default function Home() {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        // Scroll hacia abajo → esconder navbar
         setShowNavbar(false);
       } else {
-        // Scroll hacia arriba → mostrar navbar
         setShowNavbar(true);
       }
 
@@ -80,14 +67,12 @@ export default function Home() {
 
   return (
     <>
-      {/* Navbar fuera de main */}
       <nav
         className={`fixed top-0 left-0 w-full shadow-md z-50 transition-transform duration-500 ${
           navbarLight ? "bg-white" : "bg-gray-800"
         } ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}
       >
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
-          {/* Icono + frase */}
           <div className="flex items-center">
             <Image
               src="/icon.png"
@@ -105,7 +90,6 @@ export default function Home() {
             </span>
           </div>
 
-          {/* Enlaces y botón dark mode */}
           <div className="flex items-center gap-4">
             <a
               href="#seccion1"
@@ -142,7 +126,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Main con Domine solo para secciones */}
       <main className={`${domine.className} transition-colors duration-500 bg-white dark:bg-gray-900`}>
         {/* Sección 1 */}
         <section
@@ -163,16 +146,14 @@ export default function Home() {
         {/* Sección 2 */}
         <section
           id="seccion2"
-          className="h-screen flex items-center justify-center bg-orange-200 dark:bg-orange-900 px-4 pt-16 transition-colors duration-500"
+          className="h-150 flex items-center justify-center px-4 pt-16 transition-colors duration-500"
+          style={{ backgroundColor: "#F0F0F0" }}
         >
-          <h1
-            className={`text-4xl font-bold transition-colors duration-500 ${
-              navbarLight ? "text-white" : "text-black"
-            }`}
-          >
-            Sección 2
-          </h1>
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800">
+            {/* Breve descripción: en qué consiste, se hereda?, se puede evitar? */}
+          </h2>
         </section>
+
 
         {/* Sección 3 */}
         <section
