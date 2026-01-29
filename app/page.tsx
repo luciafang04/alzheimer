@@ -5,11 +5,14 @@ import { gsap } from "gsap";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Lenis from "@studio-freight/lenis";
+import { domine } from "./layout"; // Importa la font desde layout
 
 export default function Home() {
   const section1Ref = useRef<HTMLDivElement>(null);
   const [darkMode, setDarkMode] = useState(false);
   const [navbarLight, setNavbarLight] = useState(true);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const lastScrollY = useRef(0);
 
   // Animación Sección1
   useEffect(() => {
@@ -53,16 +56,35 @@ export default function Home() {
       lenis.destroy();
     };
   }, []);
-  
-  
+
+  // Navbar hide/show al hacer scroll
+  useEffect(() => {
+    function handleScroll() {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        // Scroll hacia abajo → esconder navbar
+        setShowNavbar(false);
+      } else {
+        // Scroll hacia arriba → mostrar navbar
+        setShowNavbar(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <main className="transition-colors duration-500 bg-white dark:bg-gray-900">
-      {/* Navbar */}
+    <>
+      {/* Navbar fuera de main */}
       <nav
-        className={`fixed top-0 left-0 w-full shadow-md z-50 transition-colors duration-500 ${
+        className={`fixed top-0 left-0 w-full shadow-md z-50 transition-transform duration-500 ${
           navbarLight ? "bg-white" : "bg-gray-800"
-        }`}
+        } ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}
       >
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
           {/* Icono + frase */}
@@ -120,49 +142,52 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Sección 1 */}
-      <section
-        id="seccion1"
-        ref={section1Ref}
-        className="h-screen flex items-center justify-center bg-cover bg-center px-4 pt-16 transition-colors duration-500"
-        style={{ backgroundImage: "url('/portada.jpg')" }}
-      >
-        <h1
-          className={`text-4xl md:text-6xl font-bold text-center drop-shadow-lg transition-colors duration-500 ${
-            navbarLight ? "text-white" : "text-black"
-          }`}
+      {/* Main con Domine solo para secciones */}
+      <main className={`${domine.className} transition-colors duration-500 bg-white dark:bg-gray-900`}>
+        {/* Sección 1 */}
+        <section
+          id="seccion1"
+          ref={section1Ref}
+          className="h-screen flex items-center justify-center bg-cover bg-center px-4 pt-16 transition-colors duration-500"
+          style={{ backgroundImage: "url('/portada.jpg')" }}
         >
-          No se pierde la memoria, <br />perdemos a la persona
-        </h1>
-      </section>
+          <h1
+            className={`text-4xl md:text-6xl font-bold text-center drop-shadow-lg transition-colors duration-500 ${
+              navbarLight ? "text-white" : "text-black"
+            }`}
+          >
+            No se pierde la memoria, <br />perdemos a la persona
+          </h1>
+        </section>
 
-      {/* Sección 2 */}
-      <section
-        id="seccion2"
-        className="h-screen flex items-center justify-center bg-orange-200 dark:bg-orange-900 px-4 pt-16 transition-colors duration-500"
-      >
-        <h1
-          className={`text-4xl font-bold transition-colors duration-500 ${
-            navbarLight ? "text-white" : "text-black"
-          }`}
+        {/* Sección 2 */}
+        <section
+          id="seccion2"
+          className="h-screen flex items-center justify-center bg-orange-200 dark:bg-orange-900 px-4 pt-16 transition-colors duration-500"
         >
-          Sección 2
-        </h1>
-      </section>
+          <h1
+            className={`text-4xl font-bold transition-colors duration-500 ${
+              navbarLight ? "text-white" : "text-black"
+            }`}
+          >
+            Sección 2
+          </h1>
+        </section>
 
-      {/* Sección 3 */}
-      <section
-        id="seccion3"
-        className="h-screen flex items-center justify-center bg-yellow-200 dark:bg-yellow-800 px-4 pt-16 transition-colors duration-500"
-      >
-        <h1
-          className={`text-4xl font-bold transition-colors duration-500 ${
-            navbarLight ? "text-white" : "text-black"
-          }`}
+        {/* Sección 3 */}
+        <section
+          id="seccion3"
+          className="h-screen flex items-center justify-center bg-yellow-200 dark:bg-yellow-800 px-4 pt-16 transition-colors duration-500"
         >
-          Sección 3
-        </h1>
-      </section>
-    </main>
+          <h1
+            className={`text-4xl font-bold transition-colors duration-500 ${
+              navbarLight ? "text-white" : "text-black"
+            }`}
+          >
+            Sección 3
+          </h1>
+        </section>
+      </main>
+    </>
   );
 }
