@@ -144,16 +144,95 @@ export default function Home() {
         </section>
 
         {/* Sección 2 */}
-        <section
-          id="seccion2"
-          className="h-150 flex items-center justify-center px-4 pt-16 transition-colors duration-500"
-          style={{ backgroundColor: "#F0F0F0" }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800">
-            {/* Breve descripción: en qué consiste, se hereda?, se puede evitar? */}
-          </h2>
-        </section>
+        <section className="w-full py-24 bg-bgLight dark:bg-bgDark">
+          <div className="max-w-6xl mx-auto px-6 text-center">
 
+            {/* Título */}
+            <h2 className="text-4xl font-bold mb-6 text-textLight dark:text-textDark">
+              Comprender el <span style={{ color: "#D41EA4" }}>Alzheimer </span>es el primer paso
+            </h2>
+
+            {/* Descripción */}
+            <p className="max-w-3xl mx-auto text-lg text-textLight/70 dark:text-textDark/80 mb-16">
+              El Alzheimer no solo afecta a quien lo padece, sino también a su entorno.{" "}
+              <strong className="font-semibold text-textLight dark:text-textDark">
+                Entender qué es, por qué ocurre y qué podemos hacer frente a ella es clave
+                para acompañar, prevenir y cuidar mejor.
+              </strong>
+            </p>
+
+            {/* Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+
+              {/* Item 1 */}
+              <div className="flex flex-col items-center text-center gap-4">
+                <div className="text-5xl">🏥</div>
+                <p className="text-xl font-semibold text-textLight dark:text-textDark">
+                  Qué es y sus <br />
+                  diferentes <span style={{ color: "#2E8E8F" }}>fases</span>
+                  .
+                </p>
+                <button
+                  className="w-10 h-10 rounded-full flex items-center justify-center
+                            transition-all duration-200 ease-in-out
+                            hover:scale-105 hover:bg-[#D41EA4] hover:text-white
+                            dark:hover:text-white cursor-pointer"
+                  style={{
+                    border: "1px solid #D41EA4",
+                    color: "#F781D9",
+                  }}
+                >
+                  →
+                </button>
+              </div>
+
+              {/* Item 2 */}
+              <div className="flex flex-col items-center text-center gap-4">
+                <div className="text-5xl">👨‍⚕️</div>
+                <p className="text-xl font-semibold text-textLight dark:text-textDark">
+                  Cómo aparece, <br />
+                  ¿es <span style={{ color: "#2E8E8F" }}>por herencia</span>?
+                </p>
+                <button
+                  className="w-10 h-10 rounded-full flex items-center justify-center
+                            transition-all duration-200 ease-in-out
+                            hover:scale-105 hover:bg-[#D41EA4] hover:text-white
+                            dark:hover:text-white cursor-pointer"
+                  style={{
+                    border: "1px solid #D41EA4",
+                    color: "#F781D9",
+                  }}
+                >
+                  →
+                </button>
+              </div>
+
+              {/* Item 3 */}
+              <div className="flex flex-col items-center text-center gap-4">
+                <div className="text-5xl">⭐</div>
+                <p className="text-xl font-semibold text-textLight dark:text-textDark">
+                  ¿Se puede <span style={{ color: "#2E8E8F" }}>prevenir</span>
+                  <br />o <span style={{ color: "#2E8E8F" }}>curar</span>?
+                </p>
+                <button
+                  className="w-10 h-10 rounded-full flex items-center justify-center
+                            transition-all duration-200 ease-in-out
+                            hover:scale-105 hover:bg-[#D41EA4] hover:text-white
+                            dark:hover:text-white cursor-pointer"
+                  style={{
+                    border: "1px solid #D41EA4",
+                    color: "#F781D9",
+                  }}
+                >
+                  →
+                </button>
+
+
+              </div>
+
+            </div>
+          </div>
+        </section>
 
         {/* Sección 3 */}
         <section

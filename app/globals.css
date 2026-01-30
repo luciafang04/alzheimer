@@ -124,6 +124,11 @@
   font-family: system-ui, sans-serif;
 }
 
+.highlight {
+  @apply text-primary dark:text-primary;
+}
+
+
 
 @layer base {
   * {
