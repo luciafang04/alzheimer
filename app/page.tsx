@@ -6,6 +6,18 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Lenis from "@studio-freight/lenis";
 import { domine } from "./layout"; 
+import AlertDialogItem from "@/components/AlertDialogItem"; 
+
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+
+const alzheimerData = [
+  { edad: "65-69", Porcentaje: 0.8 },
+  { edad: "70-74", Porcentaje: 2.0 },
+  { edad: "75-79", Porcentaje: 4.9 },
+  { edad: "80-84", Porcentaje: 9.9 },
+  { edad: "85-89", Porcentaje: 16.2 },
+  { edad: "90+", Porcentaje: 20.4 },
+];
 
 export default function Home() {
   const section1Ref = useRef<HTMLDivElement>(null);
@@ -169,68 +181,86 @@ export default function Home() {
                 <div className="text-5xl">🏥</div>
                 <p className="text-xl font-semibold text-textLight dark:text-textDark">
                   Qué es y sus <br />
-                  diferentes <span style={{ color: "#2E8E8F" }}>fases</span>
-                  .
+                  diferentes <span style={{ color: "#2E8E8F" }}>fases</span>.
                 </p>
-                <button
-                  className="w-10 h-10 rounded-full flex items-center justify-center
-                            transition-all duration-200 ease-in-out
-                            hover:scale-105 hover:bg-[#D41EA4] hover:text-white
-                            dark:hover:text-white cursor-pointer"
-                  style={{
-                    border: "1px solid #D41EA4",
-                    color: "#F781D9",
-                  }}
-                >
-                  →
-                </button>
+                <AlertDialogItem
+                  triggerText={<span style={{ color: "#F781D9" }}>→</span>}
+                  title="Información sobre las fases del Alzheimer"
+                  description="Aquí puedes poner la información detallada sobre las diferentes fases del Alzheimer."
+                />
               </div>
 
               {/* Item 2 */}
               <div className="flex flex-col items-center text-center gap-4">
-                <div className="text-5xl">👨‍⚕️</div>
+                <div className="text-5xl">🚶‍♂️‍➡️</div>
                 <p className="text-xl font-semibold text-textLight dark:text-textDark">
                   Cómo aparece, <br />
                   ¿es <span style={{ color: "#2E8E8F" }}>por herencia</span>?
                 </p>
-                <button
-                  className="w-10 h-10 rounded-full flex items-center justify-center
-                            transition-all duration-200 ease-in-out
-                            hover:scale-105 hover:bg-[#D41EA4] hover:text-white
-                            dark:hover:text-white cursor-pointer"
-                  style={{
-                    border: "1px solid #D41EA4",
-                    color: "#F781D9",
-                  }}
-                >
-                  →
-                </button>
+                <AlertDialogItem
+                  triggerText={<span style={{ color: "#F781D9" }}>→</span>}
+                  title="Herencia y aparición del Alzheimer"
+                  description="Aquí puedes poner la información sobre cómo aparece el Alzheimer y si está relacionado con la herencia."
+                />
               </div>
 
               {/* Item 3 */}
               <div className="flex flex-col items-center text-center gap-4">
-                <div className="text-5xl">⭐</div>
+                <div className="text-5xl">💊</div>
                 <p className="text-xl font-semibold text-textLight dark:text-textDark">
                   ¿Se puede <span style={{ color: "#2E8E8F" }}>prevenir</span>
                   <br />o <span style={{ color: "#2E8E8F" }}>curar</span>?
                 </p>
-                <button
-                  className="w-10 h-10 rounded-full flex items-center justify-center
-                            transition-all duration-200 ease-in-out
-                            hover:scale-105 hover:bg-[#D41EA4] hover:text-white
-                            dark:hover:text-white cursor-pointer"
-                  style={{
-                    border: "1px solid #D41EA4",
-                    color: "#F781D9",
-                  }}
-                >
-                  →
-                </button>
-
-
+                <AlertDialogItem
+                  triggerText={<span style={{ color: "#F781D9" }}>→</span>}
+                  title="Prevención y tratamiento del Alzheimer"
+                  description="Aquí puedes poner la información sobre las posibilidades de prevención y tratamiento del Alzheimer."
+                />
               </div>
 
             </div>
+
+            {/* Div rosa con gráfico */}
+
+          <div className="w-full bg-pink-100 rounded-xl p-8 mt-20 flex flex-col md:flex-row items-start gap-8">
+            <div className="md:w-1/2 text-left">
+              {/* Título */}
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-black">
+                Frecuencia del Alzheimer <br />por edad
+              </h3>
+
+              {/* Texto */}
+              <p className="text-sm md:text-base leading-relaxed text-gray-700">
+                El riesgo de desarrollar Alzheimer aumenta con la edad. Antes de los 70 años la prevalencia es baja, pero a partir de los 70 años se incrementa notablemente, llegando a afectar a más del 20 % de las personas mayores de 90 años. Este gráfico muestra la proporción de casos por rango de edad, permitiendo ver cómo la enfermedad se vuelve más frecuente conforme envejecemos y destacando la importancia de la prevención y detección temprana.
+              </p>
+            </div>
+
+            <div className="md:w-1/2 h-96 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={alzheimerData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="edad" />
+                  <YAxis />
+                  <Tooltip
+                    content={({ active, payload, label }) => {
+                      if (active && payload && payload.length) {
+                        return (
+                          <div className="bg-white p-2 rounded shadow-lg">
+                            <p className="text-black font-bold">{label}</p>
+                            <p className="text-black">{payload[0].value}%</p>
+                          </div>
+                        );
+                      }
+                      return null;
+                    }}
+                  />
+                  <Bar dataKey="Porcentaje" fill="#D41EA4" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+
           </div>
         </section>
 
