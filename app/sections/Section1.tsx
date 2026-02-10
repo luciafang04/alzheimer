@@ -1,5 +1,7 @@
 "use client";
 
+import { domine } from "../layout";
+
 interface Section1Props {
   navbarLight: boolean; // solo recibimos esto
 }
@@ -12,7 +14,7 @@ export default function Section1({ navbarLight }: Section1Props) {
       style={{ backgroundImage: "url('/portada.jpg')" }}
     >
       <h1
-        className={`text-4xl md:text-6xl font-bold text-center drop-shadow-lg transition-colors duration-500 ${
+        className={`${domine.className} text-4xl md:text-6xl font-bold text-center drop-shadow-lg transition-colors duration-500 ${
           navbarLight ? "text-white" : "text-black"
         }`}
       >

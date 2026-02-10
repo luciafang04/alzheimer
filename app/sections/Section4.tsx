@@ -1,5 +1,7 @@
 ﻿"use client";
 
+import { domine } from "../layout";
+
 type AyudaItem = {
   label: string;
   detail?: string;
@@ -71,7 +73,7 @@ const fases: Fase[] = [
       { label: "Cuidados profesionales en casa" },
       { label: "Plaza en residencia pública o concertada" },
       { label: "Atención sociosanitaria continuada" },
-      { label: "Material ortoprotésico", detail: "Camas articuladas, grúas…" },
+      { label: "Material ortoprotésico", detail: "Camas articuladas, grúas..." },
     ],
     note: "Aquí es donde más recursos intervienen.",
   },
@@ -113,7 +115,7 @@ export default function Section4() {
           <p className="text-sm uppercase tracking-[0.3em] text-[#2E8E8F]">
             Recursos en España
           </p>
-          <h2 className="mt-3 text-3xl md:text-4xl font-bold">
+          <h2 className={`${domine.className} mt-3 text-3xl md:text-4xl font-bold`}>
             <span className="text-[#D41EA4]">Ayudas</span> para personas con
             Alzheimer <span className="text-[#D41EA4]">según el grado</span>
           </h2>
@@ -136,7 +138,7 @@ export default function Section4() {
               >
                 {fase.title}
               </div>
-              <h3 className="mt-4 text-lg font-semibold">
+              <h3 className={`${domine.className} mt-4 text-lg font-semibold`}>
                 <span className="text-[#D41EA4]">{fase.grado}</span>{" "}
                 <span className="text-[#D190BA]">({fase.gradoDetalle})</span>
               </h3>
@@ -165,7 +167,7 @@ export default function Section4() {
         </div>
 
         <div className="mt-14 rounded-3xl border border-black/10 dark:border-white/10 bg-pink-100 p-8 text-black">
-          <h3 className="text-2xl font-semibold text-[#D41EA4]">
+          <h3 className={`${domine.className} text-2xl font-semibold text-[#D41EA4]`}>
             Ayudas para las familias y cuidadores
           </h3>
           <p className="mt-2 text-black/70">
@@ -175,7 +177,7 @@ export default function Section4() {
           <div className="mt-6 grid gap-6 md:grid-cols-3">
             {apoyos.map((bloque) => (
               <div key={bloque.title}>
-                <h4 className="font-semibold text-[#2E8E8F]">{bloque.title}</h4>
+                <h4 className={`${domine.className} font-semibold text-[#2E8E8F]`}>{bloque.title}</h4>
                 <ul className="mt-3 space-y-2 text-sm">
                   {bloque.items.map((item) => (
                     <li key={item.label} className="leading-relaxed">
@@ -191,3 +193,11 @@ export default function Section4() {
     </section>
   );
 }
+
+
+
+
+
+
+
+

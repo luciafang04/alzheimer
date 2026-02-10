@@ -1,17 +1,18 @@
-"use client";
+﻿"use client";
 
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Lenis from "@studio-freight/lenis";
-import { domine } from "./layout"; 
+import { quicksand } from "./layout"; 
 import AlertDialogItem from "@/components/AlertDialogItem"; 
 
 import Section1 from "./sections/Section1";
 import Section2 from "./sections/Section2";
 import Section3 from "./sections/Section3";
 import Section4 from "./sections/Section4";
+import Section5 from "./sections/Section5";
 
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
@@ -86,7 +87,7 @@ export default function Home() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full shadow-md z-50 transition-transform duration-500 ${
+        className={`${quicksand.className} fixed top-0 left-0 w-full shadow-md z-50 transition-transform duration-500 ${
           navbarLight ? "bg-white" : "bg-gray-800"
         } ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}
       >
@@ -110,20 +111,12 @@ export default function Home() {
 
           <div className="flex items-center gap-4">
             <a
-              href="#seccion1"
-              className={`text-sm font-medium transition-colors duration-500 hover:opacity-80 ${
-                navbarLight ? "text-gray-700" : "text-white"
-              }`}
-            >
-              Sección1
-            </a>
-            <a
               href="#seccion2"
               className={`text-sm font-medium transition-colors duration-500 hover:opacity-80 ${
                 navbarLight ? "text-gray-700" : "text-white"
               }`}
             >
-              Sección2
+              Qué es
             </a>
             <a
               href="#seccion3"
@@ -131,7 +124,23 @@ export default function Home() {
                 navbarLight ? "text-gray-700" : "text-white"
               }`}
             >
-              Sección3
+              Fases
+            </a>
+            <a
+              href="#seccion4"
+              className={`text-sm font-medium transition-colors duration-500 hover:opacity-80 ${
+                navbarLight ? "text-gray-700" : "text-white"
+              }`}
+            >
+              Ayudas
+            </a>
+            <a
+              href="#section5"
+              className={`text-sm font-medium transition-colors duration-500 hover:opacity-80 ${
+                navbarLight ? "text-gray-700" : "text-white"
+              }`}
+            >
+              Visibilidad
             </a>
 
             <Button
@@ -144,7 +153,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className={`${domine.className} transition-colors duration-500 bg-white dark:bg-gray-900`}
+      <main className={`${quicksand.className} transition-colors duration-500 bg-white dark:bg-gray-900`}
       >
         {/* Sección 1 */}
         <Section1 navbarLight={navbarLight} />
@@ -201,6 +210,9 @@ export default function Home() {
           </svg>
         </div>
 
+        {/* Sección 5 */}
+        <Section5 />
+
 
 
 
@@ -213,3 +225,4 @@ export default function Home() {
     </>
   );
 }
+

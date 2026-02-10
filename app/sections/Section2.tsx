@@ -1,6 +1,7 @@
 "use client";
 
 import AlertDialogItem from "@/components/AlertDialogItem";
+import { domine } from "../layout";
 import {
   BarChart,
   Bar,
@@ -22,11 +23,11 @@ const alzheimerData = [
 
 export default function Section2() {
   return (
-<section className="w-full pt-24 pb-32 bg-bgLight dark:bg-bgDark">
+<section id="seccion2" className="w-full pt-24 pb-32 bg-bgLight dark:bg-bgDark">
       <div className="max-w-6xl mx-auto px-6 text-center">
 
         {/* Título */}
-        <h2 className="text-4xl font-bold mb-6 text-textLight dark:text-textDark">
+        <h2 className={`${domine.className} text-4xl font-bold mb-6 text-textLight dark:text-textDark`}>
           Comprender el <span style={{ color: "#D41EA4" }}>Alzheimer </span>
           es el primer paso
         </h2>
@@ -90,7 +91,7 @@ export default function Section2() {
         <div className="w-full bg-pink-100 rounded-xl p-8 mt-20 flex flex-col md:flex-row items-start gap-8">
 
           <div className="md:w-1/2 text-left">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4 text-black">
+            <h3 className={`${domine.className} text-2xl md:text-3xl font-bold mb-4 text-black`}>
               Frecuencia por edad
             </h3>
 

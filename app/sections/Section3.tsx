@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useRef, useState } from "react";
+import { domine } from "../layout";
 
 type DraggableBubbleProps = {
   children: React.ReactNode;
@@ -8,6 +9,7 @@ type DraggableBubbleProps = {
   wrapperClassName?: string;
   floatDelay?: string;
   floatDuration?: string;
+  onShake?: (intensity: number) => void;
 };
 
 function DraggableBubble({
@@ -16,6 +18,7 @@ function DraggableBubble({
   wrapperClassName = "",
   floatDelay = "0s",
   floatDuration = "6s",
+  onShake,
 }: DraggableBubbleProps) {
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
@@ -25,10 +28,13 @@ function DraggableBubble({
     originX: 0,
     originY: 0,
   });
+  const lastMoveRef = useRef({ x: 0, y: 0, t: 0 });
+  const lastEmitRef = useRef(0);
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     e.currentTarget.setPointerCapture(e.pointerId);
     setDragging(true);
+    lastMoveRef.current = { x: e.clientX, y: e.clientY, t: performance.now() };
     dragRef.current = {
       startX: e.clientX,
       startY: e.clientY,
@@ -45,6 +51,19 @@ function DraggableBubble({
       x: dragRef.current.originX + dx,
       y: dragRef.current.originY + dy,
     });
+
+    if (onShake) {
+      const now = performance.now();
+      const dt = Math.max(1, now - lastMoveRef.current.t);
+      const vx = e.clientX - lastMoveRef.current.x;
+      const vy = e.clientY - lastMoveRef.current.y;
+      const speed = Math.hypot(vx, vy) / dt;
+      if (speed > 0.6 && now - lastEmitRef.current > 120) {
+        onShake(Math.min(1.8, speed));
+        lastEmitRef.current = now;
+      }
+      lastMoveRef.current = { x: e.clientX, y: e.clientY, t: now };
+    }
   };
 
   const endDrag = () => {
@@ -82,6 +101,32 @@ function DraggableBubble({
 }
 
 export default function Section3() {
+  const [particles, setParticles] = useState<
+    { id: number; x: number; y: number; size: number; delay: number }[]
+  >([]);
+  const particleIdRef = useRef(0);
+
+  const spawnParticles = (intensity: number) => {
+    const count = Math.max(12, Math.round(intensity * 22));
+    const created: { id: number; x: number; y: number; size: number; delay: number }[] = [];
+    for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 52 + Math.random() * 14;
+      created.push({
+        id: particleIdRef.current++,
+        x: Math.cos(angle) * radius,
+        y: Math.sin(angle) * radius,
+        size: 4 + Math.random() * 6,
+        delay: Math.random() * 80,
+      });
+    }
+    setParticles((prev) => [...prev, ...created]);
+    created.forEach((p) => {
+      setTimeout(() => {
+        setParticles((prev) => prev.filter((item) => item.id !== p.id));
+      }, 720);
+    });
+  };
   const fases = [
     {
       color: "#D4BECA",
@@ -153,7 +198,7 @@ export default function Section3() {
       </div>
 
       {/* Tí­tulo */}
-      <h2 className="text-4xl font-bold mb-16 text-black dark:text-white text-center z-10">
+      <h2 className={`${domine.className} text-4xl font-bold mb-16 text-black dark:text-white text-center z-10`}>
         Las diferentes <span style={{ color: "#D41EA4" }}>fases</span> del Alzheimer
       </h2>
 
@@ -171,7 +216,9 @@ export default function Section3() {
                   {fase.title}
                 </div>
               </DraggableBubble>
-              <h3 className="font-semibold text-[#2E8E8F] text-center">{fase.subtitle}</h3>
+              <h3 className={`${domine.className} font-semibold text-[#2E8E8F] text-center`}>
+                {fase.subtitle}
+              </h3>
               <div className="text-black/70 dark:text-white/70 mt-1 text-sm text-center space-y-1">
                 {fase.puntos.map((p, i) => (
                   <p key={i}>{p}</p>
@@ -186,9 +233,31 @@ export default function Section3() {
           wrapperClassName="absolute z-20"
           floatDelay="0.6s"
           floatDuration="7s"
+          onShake={spawnParticles}
         >
-          <div className="w-32 h-32 rounded-full bg-[#D41EA4] flex items-center justify-center text-black dark:text-white font-bold text-lg shadow-lg">
-            Alzheimer
+          <div className="relative overflow-visible">
+            <div className="absolute left-1/2 top-1/2 w-96 h-96 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
+              {particles.map((p) => (
+                <span
+                  key={p.id}
+                  className="absolute rounded-full bg-[#2E8E8F]"
+                  style={{
+                    width: `${p.size}px`,
+                    height: `${p.size}px`,
+                    left: "50%",
+                    top: "50%",
+                    ["--tx" as any]: `${p.x}px`,
+                    ["--ty" as any]: `${p.y}px`,
+                    ["--tx2" as any]: `${p.x * 4.6}px`,
+                    ["--ty2" as any]: `${p.y * 4.6}px`,
+                    animation: `particlePop 600ms ease-out ${p.delay}ms forwards`,
+                  }}
+                />
+              ))}
+            </div>
+            <div className="relative z-10 w-32 h-32 rounded-full bg-[#D41EA4] flex items-center justify-center text-black dark:text-white font-bold text-lg shadow-lg">
+              Alzheimer
+            </div>
           </div>
         </DraggableBubble>
 
@@ -215,6 +284,16 @@ export default function Section3() {
           }
           100% {
             transform: translate3d(0, 0, 0);
+          }
+        }
+        @keyframes particlePop {
+          0% {
+            opacity: 0.9;
+            transform: translate(var(--tx), var(--ty)) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translate(var(--tx2), var(--ty2)) scale(0.4);
           }
         }
       `}</style>

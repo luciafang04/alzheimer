@@ -1,9 +1,16 @@
-import { Domine } from "next/font/google";
+import { Domine, Quicksand } from "next/font/google";
 import "./globals.css";
 
 export const domine = Domine({
   subsets: ["latin"],
   weight: ["400", "700"],
+  variable: "--font-heading",
+});
+
+export const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-body",
 });
 
 export default function RootLayout({
@@ -13,9 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body>
-        {children}
-      </body>
+      <body className={`${quicksand.variable} ${domine.variable}`}>{children}</body>
     </html>
   );
 }
