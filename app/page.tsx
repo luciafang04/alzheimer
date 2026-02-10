@@ -98,7 +98,7 @@ export default function Home() {
               alt="Alzheimer Logo"
               width={30}
               height={30}
-              className="object-contain"
+              className={`object-contain ${navbarLight ? "" : "invert"}`}
             />
             <span
               className={`ml-4 text-sm font-bold transition-colors duration-500 ${
@@ -146,6 +146,7 @@ export default function Home() {
             <Button
               variant="default"
               onClick={() => setDarkMode(!darkMode)}
+              className={darkMode ? "" : "bg-gray-200 text-gray-800 hover:bg-gray-300"}
             >
               {darkMode ? "🌙" : "☀️"}
             </Button>

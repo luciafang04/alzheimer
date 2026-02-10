@@ -50,7 +50,7 @@ export default function AlertDialogItem({
           <div className="mt-6 flex justify-end">
             <AlertDialog.Cancel asChild>
               <button className="px-4 py-2 rounded-md bg-gray-200 text-black hover:bg-gray-300 transition cursor-pointer">
-                Cerrar
+                Entendido
               </button>
             </AlertDialog.Cancel>
           </div>

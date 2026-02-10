@@ -53,8 +53,8 @@ export default function Section2() {
             </p>
             <AlertDialogItem
               triggerText={<span style={{ color: "#F781D9" }}>→</span>}
-              title="Información sobre las fases del Alzheimer"
-              description="Aquí puedes poner la información detallada sobre las diferentes fases del Alzheimer."
+              title="Es importante porque..."
+              description="El Alzheimer es una enfermedad que afecta progresivamente la memoria, el pensamiento y la identidad de la persona. No es solo olvidar nombres o lugares: es perder recuerdos que nos definen y nos conectan con quienes somos. Entenderla y visibilizarla es fundamental para mejorar la atención, brindar apoyo a pacientes y familias, y fomentar la investigación que pueda frenar su avance."
             />
           </div>
 
@@ -67,8 +67,8 @@ export default function Section2() {
             </p>
             <AlertDialogItem
               triggerText={<span style={{ color: "#F781D9" }}>→</span>}
-              title="Herencia y aparición del Alzheimer"
-              description="Aquí puedes poner la información sobre cómo aparece el Alzheimer y si está relacionado con la herencia."
+              title="Aparece porque..."
+              description="El Alzheimer puede aparecer de forma esporádica, generalmente a partir de los 65 años, pero también existen formas hereditarias más raras. Tener familiares con la enfermedad aumenta ligeramente el riesgo, aunque no significa que necesariamente se padecerá. Comprender sus causas ayuda a la prevención, la detección temprana y a tomar decisiones de cuidado adecuadas."
             />
           </div>
 
@@ -81,8 +81,8 @@ export default function Section2() {
             </p>
             <AlertDialogItem
               triggerText={<span style={{ color: "#F781D9" }}>→</span>}
-              title="Prevención y tratamiento del Alzheimer"
-              description="Aquí puedes poner la información sobre las posibilidades de prevención y tratamiento del Alzheimer."
+              title="Sobre si hay cura..."
+              description="Actualmente no existe una cura para el Alzheimer, pero sí hay formas de reducir riesgos y retrasar su avance. Mantener hábitos saludables, como ejercicio regular, alimentación equilibrada, estimulación mental y control de factores de salud como la presión arterial o el azúcar, puede ayudar a proteger la memoria y la identidad por más tiempo. La investigación sigue trabajando en nuevas terapias y soluciones."
             />
           </div>
         </div>
